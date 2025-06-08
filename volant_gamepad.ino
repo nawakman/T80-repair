@@ -21,17 +21,12 @@ const int rond=9;
 const int PS=10;
 const int options=11;
 const int share=12;
-String txt="";
-
 
 int p_axis=0;
 int joyxaxis=0;
 int joyyaxis=0;
 
 void setup() {
-  joystick.setYAxis(0);//set right joystick y axis to 0, put it to the middle
-  joystick.setThrottleRange(0,1023);
-  
   Serial.begin(9600);
 
   pinMode(power1,OUTPUT);
@@ -53,15 +48,16 @@ void setup() {
   pinMode(options,INPUT_PULLUP);
   pinMode(share,INPUT_PULLUP);
 
-    joystick.begin();//false mean you need to call a function to refresh a value
+  joystick.begin();//false mean you need to call a function to refresh a value
 }
 
 void loop() {
   //Joystick left
   p_axis=analogRead(potentiometer);//get potentiometer analogic value
-  p_axis=map(p_axis,380,766,0,255);//joystick works from 0 to 255, I remap p_axis to the joystick range
+  p_axis=map(p_axis,62,800,0,255);//joystick works from 0 to 255, I remap p_axis to the joystick range
   p_axis=constrain(p_axis,0,255);//if steering wheel turned too strong
   Serial.println(p_axis);
+  
   joystick.setXAxis(p_axis);//set right joystick x axis to p_axis 
 
   if (digitalRead(thrust_l)==LOW)
@@ -128,22 +124,6 @@ void loop() {
   {joystick.pressButton(12);}
   else
   {joystick.releaseButton(12);}
-
-  //txt="";
-  
-  //txt+="  btn:";
-  //txt+=digitalRead(6);
- 
-  //Serial.println(txt);
-
-
-  //joystick right
-  //joyxaxis=analogRead(joyx);//get potentiometer analogic value
-  //joyxaxis=map(joyxaxis,0,260,0,255);//joystick works from 0 to 255, I remap p_axis to the joystick range
-  //joystick.setRxAxis(joyxaxis);
-  //joyyaxis=analogRead(joyy);//get potentiometer analogic value
-  //joyyaxis=map(joyyaxis,0,1003,0,255);//joystick works from 0 to 255, I remap p_axis to the joystick range
-  //joystick.setRyAxis(joyyaxis);
 
   delay(50);
 }
