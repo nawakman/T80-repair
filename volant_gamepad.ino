@@ -48,7 +48,10 @@ void setup() {
   pinMode(options,INPUT_PULLUP);
   pinMode(share,INPUT_PULLUP);
 
+  joystick.setXAxisRange(0, 255);
+  joystick.setYAxisRange(0, 255); 
   joystick.begin();//false mean you need to call a function to refresh a value
+  joystick.setXAxis(0);
 }
 
 void loop() {
